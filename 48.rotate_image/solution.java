@@ -5,17 +5,22 @@
 class Solution {
     public void rotate(int[][] matrix) {
         int n = matrix.length;
-        int[][] rotated = new int[n][n];
 
-        for (int x = 0; x < n; x++) {
-            for (int y = n - 1; y >= 0; y--) {
-                rotated[x][n - y - 1] = matrix[y][x];
+        // diagonal flip
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int t = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = t;
             }
         }
 
-        for (int x = 0; x < n; x++) {
-            for (int y = 0; y < n; y++) {
-                matrix[x][y] = rotated[x][y];
+        // horizontal flip
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n / 2; j++) {
+                int t = matrix[i][j];
+                matrix[i][j] = matrix[i][n - j - 1];
+                matrix[i][n - j - 1] = t;
             }
         }
     }
